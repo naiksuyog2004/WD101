@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: lightblue;
+      }
+      .section {
+        display: grid;
+        flex: 20%;
+      }
+      form {
+        text-align: left;
+        border: 2px solid gray;
+        width: 300px;
+        margin-left: 600px;
+        margin-top: 40px;
+        margin-bottom: 30px;
+        border-radius: 10px;
+        background-color: antiquewhite;
+        padding: 20px 20px;
+        /* display: inline-block; */
+        font-size: 20px;
+        box-shadow: 13px 13px 10px rgb(0, 239, 0), -13px -13px 10px orange;
+        /* outline: 13px solid orange; */
+      }
+      input {
+        margin-bottom: 10px;
+        padding: 10px 10px;
+        border-radius: 10px;
+        margin-left: 10px;
+        /* display: block; */
+        /* margin-right: 0; */
+        width: 85%;
+      }
+      #name {
+        margin-top: 10px;
+      }
+      button {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding: 10px 20px;
+        justify-content: center;
+        margin-left: 40%;
+        border-radius: 10px;
+      }
+      .column {
+        width: 100%;
+        display: inline-block;
+      }
+      .check {
+        display: flex;
+        row-gap: 1;
+      }
+      #checkbox {
+        /* padding: 20px 20px;
+         */
+        width: auto;
+      }
+      #field {
+        margin-bottom: 20px;
+        padding: 20px;
+        background: beige;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+        box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1),
+          -5px 0 10px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.1);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      td {
+        border: 1px solid #ccc;
+      }
+
+      th,
+      td {
+        /* background: cornsilk; */
+        padding: 10px;
+        text-align: left;
+      }
+
+      th {
+        background: wheat;
+        text-align: center;
+      }
+      h1 {
+        text-align: center;
+        padding: 20px 20px;
+        color: orangered;
+        margin-left: 400px;
+        margin-right: 400px;
+        border-radius: 10px;
+        outline: 2px solid orange;
+        background-color: antiquewhite;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Registration Form</h1>
+    <div class="section">
+      <form>
+        <label for="name">Name</label>
+        <div class="column">
+          <input type="text" required name="name" placeholder="Name" ="name" />
+        </div>
+        <br />
+        <label for="email">Email</label>
+        <div class="column">
+          <input
+            type="email"
+            required
+            placeholder="xyz@gmail.com"
+            id="email"
+            name="email"
+          />
+        </div>
+        <br />
+        <label for="password">Password</label>
+        <div class="column">
+          <input
+            type="password"
+            required
+            placeholder="******"
+            id="password"
+            name="password"
+          />
+        </div>
+        <br />
+        <label for="dob">Date of Birth</label>
+        <div class="column">
+          <input type="date" id="dob" name="dob" />
+        </div>
+        <br />
+        <div class="check">
+          <input type="checkbox" required id="checkbox" name="checkbox" />
+          <label for="acceptTerms">Accept Terms and conditions</label>
+        </div>
+
+        <br />
+        <button type="submit">Submit</button>
+      </form>
+
+      <fieldset id="field">
+        <h2>Entries</h2>
+        <table id="tableData">
+          <thead>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Dob</th>
+            <th>Accepted terms?</th>
+          </thead>
+
+          <tbody>
+            <!-- rows to be added dynamically -->
+          </tbody>
+        </table>
+      </fieldset>
+    </div>
+    <script src="login_page.js"></script>
+  </body>
+</html>
