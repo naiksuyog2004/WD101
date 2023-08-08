@@ -12,12 +12,14 @@
         display: grid;
         flex: 20%;
       }
+      h2{
+        text-align:center;
+      }
       form {
         text-align: left;
         border: 2px solid gray;
         width: 300px;
-        margin-left: 600px;
-        margin-bottom: 30px;
+        margin:auto;
         border-radius: 10px;
         background-color: antiquewhite;
         padding: 20px 20px;
@@ -89,6 +91,7 @@
   <body>
     <div class="section">
       <form onsubmit="return Submit()">
+        <h2>Registration Form</h2>
         <label for="name">Name</label>
         <div class="column">
           <input
