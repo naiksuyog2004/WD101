@@ -1,100 +1,93 @@
+const currentDate = new Date();
+const maxDate = new Date();
+const minDate = new Date();
 
-      // Function to validate form input and store in local storage
-      function validateFormAndStore(event) {
-        event.preventDefault(); // Prevent the default form submission
+minDate.setFullYear(currentDate.getFullYear() - 55);
+maxDate.setFullYear(currentDate.getFullYear() - 18);
 
-        const name = document.querySelector('input[name="name"]');
-        const email = document.querySelector('input[name="email"]');
-        const password = document.querySelector('input[name="password"]');
-        const dob = document.querySelector('input[name="dob"]');
-        const checkbox = document.querySelector('input[name="checkbox"]');
+document.getElementById("dob").setAttribute("min", minDate.toISOString().split('T')[0]);
+document.getElementById("dob").setAttribute("max", maxDate.toISOString().split('T')[0]);
 
-        if (
-          name.value === "" ||
-          email.value === "" ||
-          password.value === "" ||
-          dob.value === "" ||
-          !checkbox.checked
-        ) {
-          alert("Please fill out all required fields and accept the terms.");
-          return;
-        }
+if (localStorage.getItem("Names") == null) {
+    localStorage.setItem("Names", "[]");
+}
+if (localStorage.getItem("Emails") == null) {
+    localStorage.setItem("Emails", "[]");
+}
+if (localStorage.getItem("Passwords") == null) {
+    localStorage.setItem("Passwords", "[]");
+}
+if (localStorage.getItem("DOBs") == null) {
+    localStorage.setItem("DOBs", "[]");
+}
 
-        const dobDate = new Date(dob.value);
-        const today = new Date();
-        const minAge = 18;
-        const maxAge = 55;
+function displayData() {
+    const names = JSON.parse(localStorage.getItem("Names"));
+    const emails = JSON.parse(localStorage.getItem("Emails"));
+    const passwords = JSON.parse(localStorage.getItem("Passwords"));
+    const dobs = JSON.parse(localStorage.getItem("DOBs"));
 
-        const age = today.getFullYear() - dobDate.getFullYear();
-        const monthDiff = today.getMonth() - dobDate.getMonth();
-        if (
-          monthDiff < 0 ||
-          (monthDiff === 0 && today.getDate() < dobDate.getDate())
-        ) {
-          age--;
-        }
+    const tableBody = document.querySelector("#tableData tbody");
+    // Clear existing table rows
+    tableBody.innerHTML = "";
 
-        if (age < minAge || age > maxAge) {
-          alert("Date of birth must be between 18 and 55 years ago.");
-          return;
-        }
-        const entry = {
-          name: name.value,
-          email: email.value,
-          password: password.value,
-          dob: dob.value,
-          accepted: checkbox.checked,
-        };
+    for (let i = 0; i < names.length; i++) {
+        const row = document.createElement("tr");
+        const nameCell = document.createElement("td");
+        const emailCell = document.createElement("td");
+        const passCell = document.createElement("td");
+        const dobCell = document.createElement("td");
+        const agreedCell = document.createElement("td");
 
-        // Get existing entries from local storage or initialize an empty array
-        const entries = JSON.parse(localStorage.getItem("entries")) || [];
+        nameCell.textContent = names[i];
+        emailCell.textContent = emails[i];
+        passCell.textContent = passwords[i];
+        dobCell.textContent = dobs[i];
+        agreedCell.textContent = "true";
 
-        // Add the new entry to the array
-        entries.push(entry);
+        row.appendChild(nameCell);
+        row.appendChild(emailCell);
+        row.appendChild(passCell);
+        row.appendChild(dobCell);
+        row.appendChild(agreedCell);
 
-        // Store the updated array back in local storage
-        localStorage.setItem("entries", JSON.stringify(entries));
+        tableBody.appendChild(row);
+    }
 
-        // Clear form fields after submission
-        name.value = "";
-        email.value = "";
-        password.value = "";
-        dob.value = "";
-        checkbox.checked = false;
+}
 
-        // Update the table with the stored data
-        updateTable(entries);
-      }
+displayData();
 
-      // Function to update the table with stored data
-      function updateTable(entries) {
-        const tableBody = document.querySelector("#tableData tbody");
-        tableBody.innerHTML = ""; // Clear existing table rows
+function Submit() {
 
-        entries.forEach((entry) => {
-          const newRow = tableBody.insertRow();
-          const nameCell = newRow.insertCell(0);
-          const emailCell = newRow.insertCell(1);
-          const passwordCell = newRow.insertCell(2);
-          const dobCell = newRow.insertCell(3);
-          const acceptedCell = newRow.insertCell(4);
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const dob = document.getElementById("dob").value;
 
-          nameCell.textContent = entry.name;
-          emailCell.textContent = entry.email;
-          passwordCell.textContent = entry.password;
-          dobCell.textContent = entry.dob;
-          acceptedCell.textContent = entry.accepted ? "true" : "false";
-        });
-      }
+    var old_n = JSON.parse(localStorage.getItem("Names"));
+    old_n.push(name);
+    localStorage.setItem("Names", JSON.stringify(old_n));
+    
+    var old_e = JSON.parse(localStorage.getItem("Emails"));
+    old_e.push(email);
+    localStorage.setItem("Emails", JSON.stringify(old_e));
+    
+    var old_p = JSON.parse(localStorage.getItem("Passwords"));
+    old_p.push(password);
+    localStorage.setItem("Passwords", JSON.stringify(old_p));
+    
+    var old_d = JSON.parse(localStorage.getItem("DOBs"));
+    old_d.push(dob);
+    localStorage.setItem("DOBs", JSON.stringify(old_d));
 
-      // Attach form submission event listener
-      const form = document.querySelector("form");
-      form.addEventListener("submit", validateFormAndStore);
 
-      // Load existing data from local storage on page load
-      window.addEventListener("load", () => {
-        const entries = JSON.parse(localStorage.getItem("entries")) || [];
-        updateTable(entries);
-      });
-      const minDate = new Date();
-      const maxDate = new Date();
+    // Clear input fields
+    document.getElementById("name").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("password").value = "";
+    document.getElementById("dob").value = "";
+
+    displayData();
+    return false;
+}
