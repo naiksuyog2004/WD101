@@ -83,7 +83,7 @@
           emailCell.textContent = entry.email;
           passwordCell.textContent = entry.password;
           dobCell.textContent = entry.dob;
-          acceptedCell.textContent = entry.accepted ? "Yes" : "No";
+          acceptedCell.textContent = entry.accepted ? "true" : "false";
         });
       }
 
